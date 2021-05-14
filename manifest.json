@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "Movie Trailers",
+    "description": "The extension for watching movie trailers during work",
+    "version": "1.0",
+    "icons": {
+      "16": "trailer-icon.png",
+      "48": "trailer-icon.png",
+      "128": "trailer-icon.png"
+    },
+    "action": {
+      "default_icon": "trailer-icon.png",
+      "default_title": "Watch Movie Trailers at Work",
+      "default_popup": "popup/popup.html"
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "permissions": ["contextMenus", "search", "tabs", "storage", "tts", "storage", "alarms", "notifications",
+      "webview", "<all_urls>"]
+  }
+  

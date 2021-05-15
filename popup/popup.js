@@ -8,13 +8,10 @@ const dateButton= document.getElementById('date-button')
 
 
 chrome.storage.local.get(["shows"], (res) => {
-    // console.log('shows',res.shows)
     for (let i=0; i<res.shows.length; i++) {
         let show=res.shows[i]
-        // console.log('url', show.url)
-        // if(!show.summary || !show.image) continue
         if(!show.summary) continue
-        movieList.innerHTML+=`<li class='list-item'>Name: ${show.name} <br/> Description: ${show.summary} <br/> <button name='${show.name}' id='link${i}'>Watch Preview</button> </li>`
+        movieList.innerHTML+=`<li class='list-item'>Name: ${show.name} <br/> Description: ${show.summary} <br/> <button name='${show.name}' id='link${i}' season='${show.season}' episode='${show.number}'>Watch Preview</button> </li>`
 
     }
 
@@ -29,58 +26,24 @@ window.onclick = function(event) {
         fetch(` http://api.tvmaze.com/schedule/web?date=${date.value}&country=US`)
         .then(res => res.json())
         .then(data => {
-            // chrome.storage.local.set({
-            //     shows: data,
-            // })  
             movieList.innerHTML=''
             for (let i=0; i<data.length; i++) {
                 let show=data[i]
-                // console.log('url', show.url)
+                console.log('show111', show)
                 if(!show.summary || !show.image) continue
-                movieList.innerHTML+=`<li class='list-item'>Name: ${show.name} <br/> Description: ${show.summary} <br/> <button name='${show.name}' id='link${i}' season='${show.season}' episode='${show.episode}'>Watch Preview</button> </li>`
+                // console.log('show111', show)
+                movieList.innerHTML+=`<li class='list-item'>Name: ${show.name} <br/> Description: ${show.summary} <br/>  <button name='${show.name}' id='link${i}' season='${show.season}' episode='${show.number}'>Watch Preview</button> </li>`
             }
         })
-
-        // movieList.innerHTML=''
-        // chrome.storage.local.get(["shows"], (res) => {
-            // console.log('shows',res.shows)
-            // for (let i=0; i<res.shows.length; i++) {
-            //     let show=res.shows[i]
-            //     // console.log('url', show.url)
-            //     if(!show.summary || !show.image) continue
-            //     movieList.innerHTML+=`<li class='list-item'>Name: ${show.name} <br/> Description: ${show.summary} <br/> <button name='${show.name}' id='link${i}' season=${show.season} episode=${show.episode}>Watch Preview</button> </li>`
-        
-            // }
-        
-        
-        // })
-
-
-
-
-
     }
     
     else if(target.tagName==='BUTTON'&& target.id!=='date-submit'){
         chrome.tabs.create({
-            url: `https://www.youtube.com/results?search_query=${target.name}+season+${target.season}`
+            url: `https://www.youtube.com/results?search_query=${target.name}+tv+show+episode`
         })
+        // console.log('target 100001',target, 'season',target.season, 'name', target.name, 'episode', target.number)
     }
 }
 
-// dateButton.onclick= function(){
-//     chrome.storage.local.get(["shows"], (res) => {
-//         // console.log('shows',res.shows)
-//         for (let i=0; i<res.shows.length; i++) {
-//             let show=res.shows[i]
-//             // console.log('url', show.url)
-//             if(!show.summary || !show.image) continue
-//             movieList.innerHTML+=`<li class='list-item'>Name: ${show.name} <br/> Description: ${show.summary} <br/> <button name='${show.name}' id='link${i}'>Watch Preview</button> </li>`
-    
-//         }
-    
-    
-//     })
-// }
 
 
